@@ -21,6 +21,10 @@
   </defs>
 
   <!-- Outer Circular Border & Backdrop -->
+  <circle cx="50%" cy="50%" r="47" fill="url(#bgGrad)" stroke="#27272a" stroke-width="2" />
+  
+  <!-- Sleek Accent Dash Ring -->
+  <circle cx="50%" cy="50%" r="41" fill="none" stroke="url(#ringGrad)" stroke-width="1.5" stroke-dasharray="14 6 8 4" />
   <circle cx="50" cy="50" r="47" fill="url(#bgGrad)" stroke="#27272a" stroke-width="2" />
   
   <!-- Sleek Accent Dash Ring -->

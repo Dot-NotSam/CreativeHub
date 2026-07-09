@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #030303;
+  --color-foreground: #f4f4f5;
+  --color-card: #09090b;
+  --color-card-hover: #121215;
+  --color-card-border: #18181b;
+  --color-card-border-hover: #27272a;
+  --color-primary: #8b5cf6;
+  --color-primary-glow: rgba(139, 92, 246, 0.15);
+  --color-accent: #c084fc;
+  --color-muted: #71717a;
+  --color-muted-foreground: #a1a1aa;
+  
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+}
+
+:root {
+  --background: #030303;
+  --foreground: #f4f4f5;
+}
+
+/* Base Body Styles */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #18181b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #27272a;
+}
+
+/* Custom Utility Classes */
+.glass {
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(39, 39, 42, 0.5);
+}
+
+.glass-nav {
+  background: rgba(3, 3, 3, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(39, 39, 42, 0.4);
+}
+
+.grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(39, 39, 42, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39, 39, 42, 0.15) 1px, transparent 1px);
+}
+
+.radial-glow {
+  background: radial-gradient(circle 600px at 50% 200px, rgba(139, 92, 246, 0.08), transparent 80%);
+}
+
+.card-shadow {
+  box-shadow: 0 0 0 1px rgba(24, 24, 27, 0.8), 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+}
+
+.card-glow-hover:hover {
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Smooth Tab Underline Transition */
+.tab-underline {
+  view-transition-name: tab-underline;
+}

@@ -210,7 +210,7 @@ export default function ExplorePage() {
               
               {/* Media Gallery / Multiple Images */}
               <div className="space-y-4">
-                {selectedProject.gallery.map((imgUrl, idx) => (
+                {selectedProject.gallery.map((imgUrl: string, idx: number) => (
                   <div key={idx} className="rounded-xl overflow-hidden border border-card-border bg-black/30">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -241,7 +241,7 @@ export default function ExplorePage() {
                       Tools & Stack
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {selectedProject.tools.map((tool) => (
+                      {selectedProject.tools.map((tool: string) => (
                         <span
                           key={tool}
                           className="px-2.5 py-1 rounded-lg bg-card-border/60 border border-card-border text-[10px] font-mono text-zinc-300"
