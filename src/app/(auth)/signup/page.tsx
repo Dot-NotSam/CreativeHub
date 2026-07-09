@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useApp } from "@/lib/AppContext";
-import { ArrowRight, User, Briefcase, MapPin, Mail, Lock } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import { ArrowRight, User, Briefcase, MapPin, Mail, Lock, AlertCircle } from "lucide-react";
+import Logo from "@/components/shared/logo";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { updateCurrentUser } = useApp();
+  const { signup, isAuthenticated } = useAuth();
 
   const [name, setName] = useState("");
   const [role, setRole] = useState("UI/UX Designer");
@@ -16,45 +17,35 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSignup = (e: React.FormEvent) => {
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !location || !email) return;
 
     setLoading(true);
+    setError("");
 
-    setTimeout(() => {
-      // Set the dynamic user profile data to showcase during the demo!
-      updateCurrentUser({
-        name,
-        role,
-        location,
-        bio: `Professional ${role} exploring creative frontiers.`,
-        aboutMe: `Hello, I'm ${name}. I work as a ${role} based out of ${location}. Let's connect and build something awesome together!`,
-        skills: role === "UI/UX Designer" 
-          ? ["Figma", "User Research", "Prototyping", "Design Systems"] 
-          : role === "3D Artist" 
-          ? ["Blender", "Cinema4D", "Octane Render", "Texturing"] 
-          : role === "Creative Developer"
-          ? ["React", "Three.js", "WebGL", "TypeScript"]
-          : ["Creative Writing", "Copywriting", "UX Writing"],
-        connectionsCount: 0,
-        portfolioViews: 1,
-        experience: [
-          {
-            id: `exp-${Date.now()}`,
-            role: role,
-            company: "Independent Studio",
-            startDate: "2025",
-            endDate: "Present",
-            description: "Working on freelance design and creative challenges."
-          }
-        ]
-      });
-
+    try {
+      const success = await signup(name, role, location, email, password);
+      if (success) {
+        router.push("/dashboard");
+      } else {
+        setError("Email already registered. Try signing in or use another email.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An error occurred during profile registration.");
+    } finally {
       setLoading(false);
-      router.push("/dashboard");
-    }, 800);
+    }
   };
 
   return (
@@ -63,9 +54,7 @@ export default function SignupPage() {
 
       {/* Brand Header */}
       <Link href="/" className="flex items-center gap-2 mb-8 group z-10">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-accent text-white font-black shadow-lg">
-          CH
-        </div>
+        <Logo className="h-10 w-10 group-hover:scale-105 transition-transform duration-300" />
         <div className="text-left">
           <h1 className="text-md font-bold tracking-tight text-white leading-none">
             CreativeHub
@@ -82,6 +71,13 @@ export default function SignupPage() {
           <h2 className="text-lg font-bold text-white">Create your profile</h2>
           <p className="text-xs text-muted-foreground mt-1">Configure your mock account for the demo</p>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 flex gap-2 text-[11px] text-red-400 text-left items-start">
+            <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+            <span>{error}</span>
+          </div>
+        )}
 
         <form onSubmit={handleSignup} className="space-y-4">
           {/* Full Name */}
@@ -181,7 +177,7 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-xs font-bold text-white transition-all flex items-center justify-center gap-1.5 shadow-md shadow-primary/20 hover:scale-[1.01]"
+            className="w-full py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-xs font-bold text-white transition-all flex items-center justify-center gap-1.5 shadow-md shadow-primary/20 hover:scale-[1.01] cursor-pointer disabled:opacity-50"
           >
             {loading ? "Initializing..." : "Create Profile & Enter"}
             <ArrowRight className="h-4 w-4" />
