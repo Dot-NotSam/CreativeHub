@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/lib/AppContext";
+import { useAuth } from "@/lib/AuthContext";
+import Logo from "@/components/shared/logo";
 import { 
   Search, 
   Plus, 
@@ -50,6 +52,7 @@ const IMAGE_PRESETS = [
 export default function Header() {
   const pathname = usePathname();
   const { currentUser, addProject, users, projects } = useApp();
+  const { logout } = useAuth();
   
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -164,9 +167,7 @@ export default function Header() {
           </button>
           
           <Link href="/" className="lg:hidden flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-primary to-accent text-white font-bold flex items-center justify-center text-sm">
-              CH
-            </div>
+            <Logo className="h-8 w-8" />
             <span className="text-sm font-bold text-white tracking-tight">CreativeHub</span>
           </Link>
 
@@ -336,9 +337,7 @@ export default function Header() {
               {/* Header inside Mobile Menu */}
               <div className="flex items-center justify-between pb-6 border-b border-card-border">
                 <Link href="/" className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-primary to-accent text-white font-bold flex items-center justify-center text-sm">
-                    CH
-                  </div>
+                  <Logo className="h-8 w-8" />
                   <span className="text-sm font-bold text-white">CreativeHub</span>
                 </Link>
                 <button
@@ -415,9 +414,13 @@ export default function Header() {
                     <span className="text-[10px] text-muted-foreground truncate leading-none">{currentUser.role}</span>
                   </div>
                 </div>
-                <Link href="/" className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400">
-                  <LogOut className="h-4 w-4" />
-                </Link>
+                 <button
+                   onClick={logout}
+                   className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400 cursor-pointer"
+                   title="Log out"
+                 >
+                   <LogOut className="h-4 w-4" />
+                 </button>
               </div>
             </div>
           </div>

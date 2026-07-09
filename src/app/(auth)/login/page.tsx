@@ -1,32 +1,54 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sparkles, ArrowRight, Mail, Lock } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import { Sparkles, ArrowRight, Mail, Lock, AlertCircle } from "lucide-react";
+import Logo from "@/components/shared/logo";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, loginAsDemo, isAuthenticated } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // Mimic API delay
-    setTimeout(() => {
-      setLoading(false);
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
       router.push("/dashboard");
-    }, 800);
+    }
+  }, [isAuthenticated, router]);
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const success = await login(email, password);
+      if (success) {
+        router.push("/dashboard");
+      } else {
+        setError("Account not found. For demo access, use 'alex@creativehub.com' or click the one-click evaluator login below.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An error occurred during login.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDemoLogin = () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      router.push("/dashboard");
-    }, 400);
+    loginAsDemo();
+    router.push("/dashboard");
   };
 
   return (
@@ -35,9 +57,7 @@ export default function LoginPage() {
 
       {/* Brand Header */}
       <Link href="/" className="flex items-center gap-2 mb-8 group z-10">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-accent text-white font-black shadow-lg">
-          CH
-        </div>
+        <Logo className="h-10 w-10 group-hover:scale-105 transition-transform duration-300" />
         <div className="text-left">
           <h1 className="text-md font-bold tracking-tight text-white leading-none">
             CreativeHub
@@ -55,6 +75,13 @@ export default function LoginPage() {
           <p className="text-xs text-muted-foreground mt-1">Enter your details to sign in</p>
         </div>
 
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 flex gap-2 text-[11px] text-red-400 text-left items-start">
+            <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+            <span>{error}</span>
+          </div>
+        )}
+
         <form onSubmit={handleLoginSubmit} className="space-y-4">
           <div>
             <label className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
@@ -64,6 +91,7 @@ export default function LoginPage() {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="email"
+                required
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -91,7 +119,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-xs font-bold text-black transition-all flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-xs font-bold text-black transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -110,7 +138,7 @@ export default function LoginPage() {
         <button
           onClick={handleDemoLogin}
           type="button"
-          className="w-full p-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/40 text-left flex items-start gap-3.5 group transition-all"
+          className="w-full p-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/45 text-left flex items-start gap-3.5 group transition-all cursor-pointer"
         >
           <div className="h-9 w-9 rounded-full bg-primary/20 text-accent flex items-center justify-center shrink-0">
             <Sparkles className="h-4.5 w-4.5 animate-pulse" />
