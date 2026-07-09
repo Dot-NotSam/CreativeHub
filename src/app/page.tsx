@@ -64,9 +64,9 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto pt-20 pb-16">
         {/* Onboarding announcement badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] text-accent font-semibold tracking-wide uppercase mb-6 animate-pulse">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] text-accent font-semibold tracking-wide uppercase mb-6">
           <Sparkles className="h-3.5 w-3.5" />
-          LinkedIn + Behance for Creative Professionals
+          Professional Networking Platform for Creative Professionals
         </div>
 
         {/* Hero Title */}
@@ -198,16 +198,10 @@ export default function LandingPage() {
       </section>
 
       {/* Landing Footer */}
-      <footer className="relative z-10 w-full py-8 px-6 border-t border-card-border bg-[#030303] flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="relative z-10 w-full py-8 px-6 border-t border-card-border bg-[#030303] flex items-center justify-between gap-4">
         <span className="text-[10px] text-muted-foreground">
-          © {new Date().getFullYear()} CreativeHub. Built as an Azure Integration course demonstration.
+          © {new Date().getFullYear()} CreativeHub. All rights reserved.
         </span>
-        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-          <span>Technology Stack:</span>
-          <span className="px-2 py-0.5 rounded bg-card-border text-[9px] font-mono text-zinc-300">Next.js 16</span>
-          <span className="px-2 py-0.5 rounded bg-card-border text-[9px] font-mono text-zinc-300">TailwindCSS v4</span>
-          <span className="px-2 py-0.5 rounded bg-card-border text-[9px] font-mono text-zinc-300">React 19</span>
-        </div>
       </footer>
     </div>
   );
