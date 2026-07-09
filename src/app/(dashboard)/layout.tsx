@@ -36,7 +36,6 @@ export default function DashboardLayout({
   if (!isAuthenticated) {
     return null;
   }
-
   return (
     <div className="min-h-screen bg-background grid-bg">
       {/* Glow Backdrop */}
