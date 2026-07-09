@@ -38,7 +38,7 @@ export default function JobsPage() {
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.skills.some(s => s.toLowerCase().includes(searchQuery.toLowerCase()));
+      job.skills.some((s: string) => s.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesType = activeType === "All" || 
       (activeType === "Remote" && job.type === "Remote") ||
@@ -245,7 +245,7 @@ export default function JobsPage() {
                       Requirements
                     </span>
                     <ul className="list-disc list-inside space-y-1.5 pl-1.5">
-                      {selectedJob.requirements.map((req, idx) => (
+                      {selectedJob.requirements.map((req: string, idx: number) => (
                         <li key={idx} className="text-xs text-zinc-300 leading-relaxed list-item">
                           <span className="ml-[-4px]">{req}</span>
                         </li>
@@ -259,7 +259,7 @@ export default function JobsPage() {
                       Required Stack & Skills
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {selectedJob.skills.map((skill) => (
+                      {selectedJob.skills.map((skill: string) => (
                         <span
                           key={skill}
                           className="px-2.5 py-1 rounded-lg bg-card-border/60 border border-card-border text-[9px] font-semibold text-zinc-300"

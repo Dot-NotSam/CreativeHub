@@ -209,7 +209,7 @@ export default function MyProfilePage() {
             {/* EXPERIENCE TAB */}
             {activeTab === "experience" && (
               <div className="relative border-l border-card-border/80 pl-6 ml-2 space-y-8">
-                {currentUser.experience.map((exp) => (
+                {currentUser.experience.map((exp: any) => (
                   <div key={exp.id} className="relative">
                     {/* timeline node icon */}
                     <div className="absolute -left-[31px] top-1 h-3.5 w-3.5 rounded-full bg-[#030303] border-2 border-primary" />
@@ -425,7 +425,7 @@ export default function MyProfilePage() {
 
             <div className="p-6 md:p-8 space-y-8 max-h-[70vh] overflow-y-auto">
               <div className="space-y-4">
-                {selectedProject.gallery.map((imgUrl, idx) => (
+                {selectedProject.gallery.map((imgUrl: string, idx: number) => (
                   <div key={idx} className="rounded-xl overflow-hidden border border-card-border bg-black/30">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={imgUrl} alt="" className="w-full object-cover" />
@@ -449,7 +449,7 @@ export default function MyProfilePage() {
                       Tools & Stack
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {selectedProject.tools.map((tool) => (
+                      {selectedProject.tools.map((tool: string) => (
                         <span key={tool} className="px-2.5 py-1 rounded-lg bg-card-border/60 border border-card-border text-[10px] font-mono text-zinc-300">
                           {tool}
                         </span>
