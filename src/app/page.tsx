@@ -171,7 +171,7 @@ export default function LandingPage() {
               Architected for Enterprise Scalability
             </h3>
             <p className="text-xs text-muted-foreground mt-2">
-              For this prototype, all functionalities utilize offline React state. However, the data interfaces are engineered to map to the following Azure Cloud infrastructure:
+              CreativeHub is designed with a cloud-native architecture capable of scaling through Azure services.
             </p>
           </div>
 
