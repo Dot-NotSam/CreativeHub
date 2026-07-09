@@ -43,7 +43,7 @@ export default function ExplorePage() {
   const filteredProjects = projects.filter(proj => {
     const matchesCategory = activeCategory === "All" || proj.category === activeCategory;
     const matchesSearch = proj.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      proj.tools.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      proj.tools.some((t: string) => t.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
