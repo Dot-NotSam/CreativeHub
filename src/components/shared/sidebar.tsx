@@ -13,11 +13,14 @@ import {
   LogOut, 
   Sparkles 
 } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import Logo from "@/components/shared/logo";
 import { cn } from "@/lib/utils";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { currentUser } = useApp();
+  const { logout } = useAuth();
 
   const navItems = [
     { name: "Feed", href: "/dashboard", icon: Home },
@@ -33,9 +36,7 @@ export default function Sidebar() {
       <div className="flex flex-col gap-6 px-6 py-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-accent text-white font-black shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
-            CH
-          </div>
+          <Logo className="h-10 w-10 group-hover:scale-105 transition-transform duration-300" />
           <div>
             <h1 className="text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors">
               CreativeHub
@@ -97,13 +98,13 @@ export default function Sidebar() {
             </div>
           </Link>
 
-          <Link
-            href="/"
+          <button
+            onClick={logout}
             title="Log out"
-            className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
+            className="p-1.5 rounded-lg text-muted-foreground hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20 cursor-pointer"
           >
             <LogOut className="h-4 w-4" />
-          </Link>
+          </button>
         </div>
         
         {/* Azure Ready Ribbon */}
