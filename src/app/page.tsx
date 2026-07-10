@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
-import { ArrowRight, Compass, Users, Sparkles, Database, Cloud, Zap, Check } from "lucide-react";
+import { ArrowRight, Compass, Users, Sparkles, Database, Cloud, Zap, Check, Briefcase } from "lucide-react";
 import Logo from "@/components/shared/logo";
 
 export default function LandingPage() {
@@ -90,24 +90,14 @@ export default function LandingPage() {
           </button>
           <Link
             href="/signup"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-card hover:bg-card-hover text-xs font-bold text-white border border-card-border hover:border-card-border-hover transition-all"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-zinc-900 border border-card-border hover:bg-zinc-800 text-xs font-bold text-white transition-all hover:scale-[1.02] text-center"
           >
-            <Users className="h-4 w-4 text-muted-foreground" />
-            Create Account
+            Create Free Account
           </Link>
         </div>
 
-        {/* Product preview deck card */}
-        <div className="relative w-full max-w-4xl p-2 rounded-2xl border border-card-border bg-[#09090b]/50 shadow-2xl backdrop-blur-xl mb-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-          {/* Header styling mimics a browser frame */}
-          <div className="flex items-center gap-1.5 pb-2.5 px-3 border-b border-card-border/60">
-            <div className="h-2 w-2 rounded-full bg-red-500/80" />
-            <div className="h-2 w-2 rounded-full bg-yellow-500/80" />
-            <div className="h-2 w-2 rounded-full bg-green-500/80" />
-            <div className="ml-4 h-4 w-40 rounded bg-card-border/60" />
-          </div>
-          
+        {/* Mock UI layout frame preview */}
+        <div className="w-full border-t border-card-border pt-12 text-left">
           <div className="relative h-60 sm:h-96 w-full rounded-xl overflow-hidden mt-2 bg-[#050505] flex items-center justify-center">
             {/* Overlay of visual graphic */}
             <div className="absolute inset-0 grid grid-cols-3 gap-3 p-4 opacity-70">
@@ -160,6 +150,90 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* Core Modules Features Grid */}
+        <div className="w-full border-t border-card-border pt-16 pb-8 text-left relative z-10">
+          <div className="max-w-xl mb-12">
+            <span className="text-[9px] uppercase font-bold text-primary tracking-wider">Features Showcase</span>
+            <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+              Engineered for the Creative Ecosystem
+            </h3>
+            <p className="text-xs text-muted-foreground mt-2">
+              CreativeHub bridges the gap between clean professional networking profiles and immersive visual portfolios.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-5 rounded-2xl bg-card/60 border border-card-border flex flex-col gap-4 hover:border-primary/30 hover:bg-card-hover/40 transition-all group">
+              <div className="h-10 w-10 rounded-xl bg-primary/5 border border-primary/20 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Compass className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-white">Visual Portfolio Board</h4>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
+                  Display high-resolution galleries, tool stacks, and wireframes. Filter dynamically by creative category.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-card/60 border border-card-border flex flex-col gap-4 hover:border-primary/30 hover:bg-card-hover/40 transition-all group">
+              <div className="h-10 w-10 rounded-xl bg-accent/5 border border-accent/20 text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Users className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-white">Professional Connections</h4>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
+                  Expand your professional contacts list, approve incoming request links, and follow industry peers.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-card/60 border border-card-border flex flex-col gap-4 hover:border-primary/30 hover:bg-card-hover/40 transition-all group">
+              <div className="h-10 w-10 rounded-xl bg-emerald-500/5 border border-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Briefcase className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-white">Creative Opportunities</h4>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
+                  Discover job board listings sorted by salary tiers, remote preferences, and skill tags. Apply instantly.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-card/60 border border-card-border flex flex-col gap-4 hover:border-primary/30 hover:bg-card-hover/40 transition-all group">
+              <div className="h-10 w-10 rounded-xl bg-violet-500/5 border border-violet-500/20 text-violet-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Sparkles className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-white">Interactive Feed Stream</h4>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
+                  Publish project updates, upload custom file attachments, comment on threads, and toggle reaction stats.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tailored Roles Section */}
+        <div className="w-full border-t border-card-border pt-16 pb-12 text-center relative z-10">
+          <span className="text-[9px] uppercase font-bold text-accent tracking-wider">Tailored Spaces</span>
+          <h3 className="text-xl sm:text-2xl font-bold text-white mt-1 max-w-lg mx-auto leading-tight">
+            Designed for Specialized Creative Crafts
+          </h3>
+          <p className="text-xs text-muted-foreground mt-2 max-w-xl mx-auto">
+            Traditional professional platforms group all roles together. CreativeHub categorizes portfolios and tools by your exact craft.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-2 mt-8 max-w-4xl mx-auto">
+            {["UI/UX Designers", "3D Visual Artists", "Graphic Designers", "Illustrators", "Video Editors", "Writers", "Sound Designers", "3D Animators", "Creative Developers", "Product Designers"].map((role) => (
+              <span
+                key={role}
+                className="px-4 py-2 rounded-full bg-card-border/30 border border-card-border/60 text-[10px] font-bold text-white hover:border-primary/40 hover:bg-primary/5 transition-all select-none"
+              >
+                {role}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Landing Footer */}
