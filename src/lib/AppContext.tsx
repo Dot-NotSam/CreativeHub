@@ -63,6 +63,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // Initialize and load from localStorage
   useEffect(() => {
     try {
+      const dbVersion = "v5";
+      const currentDbVersion = localStorage.getItem("creativehub_db_version");
+      if (currentDbVersion !== dbVersion) {
+        localStorage.removeItem("creativehub_data_users");
+        localStorage.removeItem("creativehub_data_projects");
+        localStorage.removeItem("creativehub_data_jobs");
+        localStorage.removeItem("creativehub_data_feed");
+        localStorage.removeItem("creativehub_data_connections");
+        localStorage.setItem("creativehub_db_version", dbVersion);
+      }
+
       const savedUsers = localStorage.getItem("creativehub_data_users");
       if (savedUsers) {
         const parsedUsers = JSON.parse(savedUsers);
