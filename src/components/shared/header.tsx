@@ -99,6 +99,19 @@ export default function Header() {
   const [projCover, setProjCover] = useState(IMAGE_PRESETS[0].url);
   const [projTools, setProjTools] = useState("");
   
+  const projectFileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleProjectImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProjCover(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
   const searchRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
 
@@ -511,7 +524,17 @@ export default function Header() {
                 <label className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
                   Choose Cover Art Preset
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                
+                {/* Hidden native file input */}
+                <input
+                  type="file"
+                  ref={projectFileInputRef}
+                  accept="image/*"
+                  onChange={handleProjectImageUpload}
+                  className="hidden"
+                />
+
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                   {IMAGE_PRESETS.map((preset) => (
                     <button
                       key={preset.name}
@@ -533,6 +556,32 @@ export default function Header() {
                       )}
                     </button>
                   ))}
+
+                  <button
+                    type="button"
+                    onClick={() => projectFileInputRef.current?.click()}
+                    className={cn(
+                      "relative h-16 rounded-lg overflow-hidden border-2 border-dashed transition-all flex flex-col items-center justify-center text-center p-1 text-[9px] font-bold cursor-pointer",
+                      !IMAGE_PRESETS.some(p => p.url === projCover) ? "border-primary bg-primary/5 text-white" : "border-card-border/60 hover:border-card-border text-muted-foreground hover:text-white"
+                    )}
+                  >
+                    {!IMAGE_PRESETS.some(p => p.url === projCover) ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={projCover} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                        <div className="absolute inset-0 bg-black/60" />
+                        <span className="relative z-10 text-white truncate leading-none">Custom Image</span>
+                        <span className="absolute top-1 right-1 h-3.5 w-3.5 bg-primary rounded-full flex items-center justify-center">
+                          <Check className="h-2 w-2 text-white" />
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <ImageIcon className="h-4.5 w-4.5 mb-1 text-primary animate-pulse" />
+                        <span>Upload File</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
 
