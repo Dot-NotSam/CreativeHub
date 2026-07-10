@@ -55,38 +55,35 @@ export default function Sidebar() {
 
             return (
               <Link
-                key={item.href}
+                key={item.name}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group relative",
-                  isActive 
-                    ? "bg-primary/10 text-primary border border-primary/20" 
-                    : "text-muted-foreground hover:text-white hover:bg-card-border/50 border border-transparent"
+                  "flex items-center gap-3.5 px-4 py-3 rounded-xl text-xs font-bold transition-all relative group/item",
+                  isActive
+                    ? "bg-primary/10 text-accent border border-primary/20 shadow-md shadow-primary/5"
+                    : "text-muted-foreground hover:text-white hover:bg-card-border border border-transparent"
                 )}
               >
-                {isActive && (
-                  <div className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r bg-primary" />
-                )}
-                <Icon className={cn(
-                  "h-4.5 w-4.5 transition-transform duration-200 group-hover:scale-105",
-                  isActive ? "text-primary" : "text-muted-foreground group-hover:text-white"
-                )} />
+                <Icon className={cn("h-4.5 w-4.5", isActive ? "text-accent animate-pulse-subtle" : "text-muted-foreground group-hover/item:text-white transition-colors")} />
                 {item.name}
+                {isActive && (
+                  <div className="absolute right-3.5 h-1.5 w-1.5 rounded-full bg-accent" />
+                )}
               </Link>
             );
           })}
         </nav>
       </div>
 
-      {/* Bottom Profile Section */}
-      <div className="p-4 border-t border-card-border bg-card/10">
-        <div className="flex items-center justify-between p-2 rounded-xl bg-card/40 border border-card-border/40">
-          <Link href="/profile" className="flex items-center gap-3 group">
+      {/* Bottom User Profile Section */}
+      <div className="px-6 py-6 border-t border-card-border">
+        <div className="flex items-center justify-between p-2 rounded-xl bg-card-border/40 hover:bg-card-border/60 transition-all border border-card-border/50 group">
+          <Link href="/profile" className="flex items-center gap-3 max-w-[150px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={currentUser.avatar}
-              alt={currentUser.name}
-              className="h-9 w-9 rounded-full object-cover border border-card-border group-hover:border-primary/50 transition-colors"
+              alt=""
+              className="h-8.5 w-8.5 rounded-full object-cover ring-2 ring-card-border group-hover:ring-primary/40 transition-all"
             />
             <div className="flex flex-col text-left max-w-[120px]">
               <span className="text-xs font-semibold text-white truncate leading-none mb-1 group-hover:text-primary transition-colors">
@@ -105,12 +102,6 @@ export default function Sidebar() {
           >
             <LogOut className="h-4 w-4" />
           </button>
-        </div>
-        
-        {/* Azure Ready Ribbon */}
-        <div className="mt-3 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg bg-emerald-500/5 border border-emerald-500/10 text-[10px] text-emerald-400 font-medium select-none">
-          <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          Azure Ready
         </div>
       </div>
     </aside>
