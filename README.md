@@ -1,107 +1,313 @@
-# CreativeHub - Professional Networking Platform for Creatives
+<div align="center">
 
-CreativeHub is a high-fidelity dark-mode professional networking platform designed specifically for creative specialists (UI/UX designers, 3D artists, illustrators, motion graphics artists, and creative frontend developers). Think of it as **LinkedIn meets Behance** with a premium, sleek UI inspired by Vercel, Linear, and Raycast.
+# 🎨 CreativeHub
 
-This repository serves as a **highly polished frontend prototype** built for course/internship submission, illustrating clean folder architecture, dynamic React client-state updates, and complete conceptual alignment with cloud hosting architectures.
+### Professional Networking Platform for Creative Professionals
 
----
+Connect • Showcase • Grow
 
-## 🚀 Live Demo & Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4)
+![Azure](https://img.shields.io/badge/Microsoft-Azure-0078D4)
+![License](https://img.shields.io/badge/License-MIT-success)
 
-Follow these steps to run the interactive prototype on your local machine:
-
-1.  **Clone the Repository** and navigate to the project directory.
-2.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
-3.  **Launch Dev Server**:
-    ```bash
-    npm run dev
-    ```
-4.  **Open in Browser**: Navigate to [http://localhost:3000](http://localhost:3000)
-
-### 🔑 Evaluator Quick-Access
-*   **Onboarding**: Click **"Get Started"** on the landing page to initialize a personalized creative profile, which updates the dashboard in real-time.
-*   **One-Click Login**: On the `/login` screen, click the **"One-click Evaluator Login"** banner to instantly sign in as a preloaded Guest Developer profile (*Alex Mercer*), populated with connections, active jobs, and feed items.
+</div>
 
 ---
 
-## 🎨 Design Language & Aesthetic Guidelines
-CreativeHub is styled with a custom dark-mode aesthetic utilizing:
-*   **Grid Backgrounds**: Minimalist zinc coordinate grids (`grid-bg` inside CSS).
-*   **Glassmorphism**: Backdrop blur overlays (`backdrop-filter`) for headers, modal cards, and navigation selectors.
-*   **Curated Palettes**: Accent glows based on HSL tailored violets (`#8b5cf6`), dark cards (`#09090b`), and clean slate/zinc text values.
-*   **Interactivity**: Complete React state binding ensuring clicking "Like", "Connect", "Apply", or uploading new projects instantly propagates changes across the header metrics, feed lists, and network graphs.
+# 📖 Overview
+
+CreativeHub is a professional networking platform designed exclusively for creative professionals, including UI/UX designers, graphic designers, photographers, illustrators, video editors, writers, motion designers, 3D artists, and creative developers.
+
+The platform combines professional networking, portfolio presentation, and opportunity discovery into a unified ecosystem where creators can establish their professional identity, showcase their work, connect with industry professionals, and explore creative career opportunities.
 
 ---
 
-## ☁️ Azure Cloud Integration Architecture
+# 🎯 Problem Statement
 
-While this prototype runs entirely in-memory using React Context, the service layers are structured to mock real server-side operations. Below is the conceptual architectural mapping representing how this application scales using **Microsoft Azure Services**:
+Creative professionals often depend on multiple disconnected platforms to manage their professional presence.
 
-```mermaid
-graph TD
-    User([Creative User])
-    
-    subgraph Frontend Layer
-        SWA[Azure Static Web Apps]
-        CDN[Azure CDN / Front Door]
-    end
-    
-    subgraph Logic & Compute Layer
-        Funcs[Azure Functions / API]
-    end
-    
-    subgraph Data & Storage Layer
-        SQL[(Azure SQL Database)]
-        Blob[(Azure Blob Storage)]
-    end
+- Professional networking on LinkedIn
+- Portfolio presentation on Behance or Dribbble
+- Career opportunities through job portals
 
-    User -->|Accesses site| SWA
-    SWA -->|Delivers JS/CSS| CDN
-    CDN -->|Retrieves assets| Blob
-    User -->|Submits Work / Connects| Funcs
-    Funcs -->|Stores Relational Data| SQL
-    Funcs -->|Saves Raw Media/PDFs| Blob
-```
+Maintaining separate profiles across multiple platforms makes networking and portfolio management inefficient.
 
-### 🗄️ 1. Relational Data Store: Azure SQL Database
-*   **Entities Mapped**: Users, Career Experience Timelines, Connections Mapping, Job Postings, and Feed Comments.
-*   **Workflow**: When a user clicks "Connect" or "Accept Invitation", an Azure SQL query updates a self-referencing `UserConnections` table (with columns `RequesterID`, `ReceiverID`, and `Status: connected | pending`).
-
-### 📦 2. Media & Asset Storage: Azure Blob Storage
-*   **Entities Mapped**: High-resolution portfolio covers, gallery lists, and user resumes (PDFs).
-*   **Workflow**: The "Share Work" action triggers a file upload. The frontend sends the file payload to an Azure Blob container utilizing a Shared Access Signature (SAS) token for secure, direct upload.
-
-### ⚡ 3. Edge Delivery: Azure CDN / Front Door
-*   **Entities Mapped**: Image-heavy portfolio pages.
-*   **Workflow**: Caches Blob-hosted asset nodes globally. Designers uploading 4K renders see their pages render in sub-seconds globally since images load from localized edge points.
-
-### ⚙️ 4. Serverless Processing: Azure Functions
-*   **Entities Mapped**: Job Application Submissions, Email Digests, and Resume Matchmaking.
-*   **Workflow**: Clicking "Easy Apply" triggers an HTTP-based Azure Function. This serverless process compiles the candidate portfolio details, reads the CV from Blob storage, and places a record in a processing queue for recruiters.
+CreativeHub provides a unified platform where creative professionals can network, build portfolios, and discover opportunities from a single place.
 
 ---
 
-## 📁 Repository Structure
+# 🚀 Key Features
+
+- 👤 Professional Creator Profiles
+- 🎨 Portfolio Showcase
+- 🤝 Professional Networking
+- 🔍 Discover Creative Professionals
+- 💼 Creative Job Board
+- 📰 Personalized Dashboard
+- ❤️ Social Engagement (Likes & Comments)
+- 🔐 Secure Authentication
+- 🎭 Demo Mode for Quick Evaluation
+- 📱 Responsive User Interface
+
+---
+
+# ☁️ Microsoft Azure Architecture
+
+CreativeHub follows a cloud-based architecture designed using Microsoft Azure services to ensure scalability, reliability, and efficient media management.
+
+| Azure Service | Purpose |
+|----------------------|------------------------------------------------------------|
+| Azure App Service | Hosts the CreativeHub web application |
+| Azure SQL Database | Stores user profiles, networking data, job listings, and portfolio metadata |
+| Azure Blob Storage | Stores portfolio images, creative assets, and media files |
+
+---
+
+## System Architecture
 
 ```text
-creativehub/
-├── public/                       # Global assets & branding
-├── src/
-│   ├── app/                      # Next.js App Router (Layouts & Pages)
-│   │   ├── (auth)/               # Login & Signup screens
-│   │   ├── (dashboard)/          # Dashboard Navigation Group
-│   │   │   ├── dashboard/        # Social Feed & Post Composer
-│   │   │   ├── explore/          # Behance-style project grid & modal viewer
-│   │   │   ├── connections/      # Connection approvals & recommendations
-│   │   │   └── jobs/             # Job board & Easy Apply dialogs
-│   │   └── layout.tsx            # Global layout wrappers
-│   ├── components/               # Shareable Layout UI components
-│   ├── lib/
-│   │   ├── AppContext.tsx        # React client state management
-│   │   └── mockData.ts           # Curated developer, designer and project lists
-│   └── types/
-│       └── index.ts              # TypeScript schemas
+                    Users
+                      │
+                      ▼
+            Azure App Service
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+ Azure SQL Database      Azure Blob Storage
+          │                       │
+          └───────────┬───────────┘
+                      ▼
+                 CreativeHub
 ```
+
+---
+
+# 🏗 Core Modules
+
+## 👤 Professional Profiles
+
+Users can create a personalized profile containing:
+
+- Profile Picture
+- Professional Title
+- Biography
+- Skills
+- Experience
+- Social Links
+- Portfolio
+- Professional Statistics
+
+---
+
+## 🎨 Portfolio Showcase
+
+Creators can showcase their work through portfolio projects containing:
+
+- Project Cover Image
+- Project Description
+- Creative Category
+- Tools & Technologies Used
+- Engagement Statistics
+
+---
+
+## 🤝 Professional Networking
+
+CreativeHub enables users to:
+
+- Discover creative professionals
+- Send connection requests
+- Manage professional connections
+- Build their creative network
+
+---
+
+## 💼 Job Opportunities
+
+The integrated job board allows users to:
+
+- Browse creative opportunities
+- View detailed job descriptions
+- Check required skills
+- Apply for positions
+- Track application status
+
+---
+
+## 📰 Personalized Dashboard
+
+The dashboard provides quick access to:
+
+- Featured Creatives
+- Trending Portfolios
+- Suggested Connections
+- Latest Opportunities
+- Community Activity
+
+---
+
+# 🛠 Technology Stack
+
+| Category | Technology |
+|-----------|------------|
+| Frontend | Next.js (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| UI Components | shadcn/ui |
+| Icons | Lucide React |
+| Animations | Framer Motion |
+| State Management | React Context API |
+| Data Storage | Browser Local Storage |
+
+---
+
+# 📂 Project Structure
+
+```text
+src
+│
+├── app
+│   ├── (auth)
+│   ├── (dashboard)
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components
+│   ├── shared
+│   └── ui
+│
+├── lib
+│   ├── AuthContext.tsx
+│   ├── AppContext.tsx
+│   ├── mockData.ts
+│   └── utils.ts
+│
+├── hooks
+│
+├── types
+│
+└── styles
+```
+
+---
+
+# 🔒 Authentication
+
+CreativeHub supports two authentication methods.
+
+### Personal Account
+
+Users can create their own account, log in securely, and maintain a personalized experience across sessions.
+
+### Demo Mode
+
+A pre-configured creative profile is available for quick evaluation, allowing users to explore all platform features without creating an account.
+
+---
+
+# 💾 Data Management
+
+The platform maintains persistent application data including:
+
+- User Profiles
+- Portfolio Projects
+- Professional Connections
+- Job Applications
+- Activity Feed
+- User Preferences
+
+This enables a seamless and consistent user experience across browser sessions.
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+- Node.js 18 or above
+- npm
+
+---
+
+## Installation
+
+Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+Navigate into the project
+
+```bash
+cd CreativeHub
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the development server
+
+```bash
+npm run dev
+```
+
+Build for production
+
+```bash
+npm run build
+```
+
+Start the production server
+
+```bash
+npm run start
+```
+
+---
+
+# 📸 Application Modules
+
+- Landing Page
+- Authentication
+- Dashboard
+- Explore Creatives
+- Creator Profiles
+- Portfolio Gallery
+- Professional Connections
+- Job Listings
+- Activity Feed
+
+---
+
+# 🔮 Future Enhancements
+
+- AI-powered creator recommendations
+- Real-time messaging
+- Portfolio analytics
+- Recruiter dashboard
+- Creative communities
+- Event management
+- Skill verification
+- Team collaboration workspaces
+
+---
+
+# 👨‍💻 Team
+
+Developed by the CreativeHub Team.
+
+---
+
+<div align="center">
+
+### 🎨 CreativeHub
+
+Connecting Creative Minds.
+
+</div>
