@@ -139,7 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         role,
         bio: `Professional ${role} exploring creative frontiers.`,
         location,
-        avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&q=80`, // Neutral avatar
+        avatar: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzE4MTgxYiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNDAiIHI9IjE4IiBmaWxsPSIjNzE3MTdhIi8+PHBhdGggZD0iTTIyIDgwYzAtMTUgMTItMjUgMjgtMjVzMjggMTAgMjggMjUiIGZpbGw9IiM3MTcxN2EiLz48L3N2Zz4=", // Premium SVG user placeholder
         banner: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&h=400&fit=crop&q=80",
         skills: role === "UI/UX Designer" 
           ? ["Figma", "User Research", "Prototyping", "Design Systems"] 
