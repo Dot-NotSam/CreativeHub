@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/AppContext";
 import { 
@@ -42,6 +42,18 @@ export default function DashboardPage() {
   const [newPostText, setNewPostText] = useState("");
   const [selectedPresetImage, setSelectedPresetImage] = useState<string | null>(null);
   const [showImagePresets, setShowImagePresets] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedPresetImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Comments state map: { [postId]: list of mock comments }
   const [postComments, setPostComments] = useState<Record<string, Array<{ author: string; avatar: string; text: string }>>>({
@@ -134,13 +146,22 @@ export default function DashboardPage() {
               </div>
             )}
 
+            {/* Hidden native file input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+
             {/* Presets Grid */}
             {showImagePresets && (
               <div className="p-3.5 rounded-xl bg-black/40 border border-card-border space-y-2">
                 <span className="text-[10px] font-bold uppercase text-muted-foreground tracking-wider block">
                   Select Visual Attachment
                 </span>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-4 gap-2">
                   {POST_IMAGE_PRESETS.map((img) => (
                     <button
                       key={img.name}
@@ -155,6 +176,15 @@ export default function DashboardPage() {
                       <img src={img.url} alt="" className="h-full w-full object-cover" />
                     </button>
                   ))}
+
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex flex-col items-center justify-center border border-dashed border-card-border hover:border-primary/50 hover:bg-primary/5 rounded-lg h-14 text-[9px] font-bold text-muted-foreground hover:text-white transition-all cursor-pointer"
+                  >
+                    <ImageIcon className="h-4 w-4 mb-1 text-primary" />
+                    Upload File
+                  </button>
                 </div>
               </div>
             )}
