@@ -425,16 +425,6 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
-
-        {/* AZURE COMPLIANCE ANCHOR */}
-        <div className="p-5 rounded-2xl bg-indigo-950/10 border border-indigo-500/10 shadow-md space-y-3">
-          <h4 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-1.5 select-none">
-            <Cloud className="h-4 w-4" /> Azure Architecture Guide
-          </h4>
-          <p className="text-[10px] text-muted-foreground leading-relaxed">
-            This prototype demonstrates offline responsiveness. In production, image streams map to **Azure CDNs**, while likes/posts sync to **Azure SQL** via trigger-less serverless **Azure Functions**.
-          </p>
-        </div>
       </div>
     </div>
   );

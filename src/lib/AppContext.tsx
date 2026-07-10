@@ -65,7 +65,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       const savedUsers = localStorage.getItem("creativehub_data_users");
       if (savedUsers) {
-        setUsers(JSON.parse(savedUsers));
+        const parsedUsers = JSON.parse(savedUsers);
+        if (parsedUsers.length < mockUsers.length) {
+          const existingIds = new Set(parsedUsers.map((u: any) => u.id));
+          const missingUsers = mockUsers.filter(u => !existingIds.has(u.id));
+          const updatedUsers = [...parsedUsers, ...missingUsers];
+          setUsers(updatedUsers);
+          localStorage.setItem("creativehub_data_users", JSON.stringify(updatedUsers));
+        } else {
+          setUsers(parsedUsers);
+        }
       } else {
         setUsers(mockUsers);
         localStorage.setItem("creativehub_data_users", JSON.stringify(mockUsers));
@@ -73,7 +82,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       const savedProjects = localStorage.getItem("creativehub_data_projects");
       if (savedProjects) {
-        setProjects(JSON.parse(savedProjects));
+        const parsedProjects = JSON.parse(savedProjects);
+        if (parsedProjects.length < mockProjects.length) {
+          const existingIds = new Set(parsedProjects.map((p: any) => p.id));
+          const missingProjects = mockProjects.filter(p => !existingIds.has(p.id));
+          const updatedProjects = [...parsedProjects, ...missingProjects];
+          setProjects(updatedProjects);
+          localStorage.setItem("creativehub_data_projects", JSON.stringify(updatedProjects));
+        } else {
+          setProjects(parsedProjects);
+        }
       } else {
         setProjects(mockProjects);
         localStorage.setItem("creativehub_data_projects", JSON.stringify(mockProjects));
@@ -89,7 +107,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       const savedFeed = localStorage.getItem("creativehub_data_feed");
       if (savedFeed) {
-        setFeedPosts(JSON.parse(savedFeed));
+        const parsedFeed = JSON.parse(savedFeed);
+        if (parsedFeed.length < mockFeedPosts.length) {
+          const existingIds = new Set(parsedFeed.map((p: any) => p.id));
+          const missingPosts = mockFeedPosts.filter(p => !existingIds.has(p.id));
+          const updatedFeed = [...parsedFeed, ...missingPosts];
+          setFeedPosts(updatedFeed);
+          localStorage.setItem("creativehub_data_feed", JSON.stringify(updatedFeed));
+        } else {
+          setFeedPosts(parsedFeed);
+        }
       } else {
         setFeedPosts(mockFeedPosts);
         localStorage.setItem("creativehub_data_feed", JSON.stringify(mockFeedPosts));

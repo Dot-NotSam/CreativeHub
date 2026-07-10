@@ -266,17 +266,6 @@ export default function ConnectionsPage() {
           )
         )}
       </div>
-
-      {/* AZURE COMPONENT ALIGNMENT BANNER */}
-      <div className="p-4 rounded-2xl bg-indigo-950/10 border border-indigo-500/10 flex items-center gap-3 text-left">
-        <Sparkles className="h-5 w-5 text-indigo-400 shrink-0" />
-        <div className="space-y-0.5">
-          <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Azure SQL Relationship Graph Integration</h4>
-          <p className="text-[10px] text-muted-foreground leading-normal">
-            This module models relational connections. In a production environment, connection actions triggers serverless transactional queries executed directly on an **Azure SQL Database** containing self-referencing relationship mapping tables.
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

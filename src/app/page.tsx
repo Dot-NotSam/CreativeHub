@@ -22,24 +22,6 @@ export default function LandingPage() {
     router.push("/dashboard");
   };
 
-  const azureFeatures = [
-    {
-      title: "Azure Blob Storage",
-      desc: "Conceptually houses ultra-high-resolution portfolio media, supporting 3D models, videos, and raw images.",
-      icon: Cloud,
-    },
-    {
-      title: "Azure SQL Database",
-      desc: "Designed to store relational user tables, networking states, job postings, and connection maps.",
-      icon: Database,
-    },
-    {
-      title: "Azure CDN & Front Door",
-      desc: "Caches image-heavy portfolio items globally to guarantee sub-second load times for recruiters.",
-      icon: Zap,
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-[#030303] text-foreground grid-bg relative flex flex-col justify-between overflow-x-hidden">
       {/* Background glow effects */}
@@ -178,38 +160,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Azure Architecture Section */}
-        <div className="w-full border-t border-card-border pt-16 text-left">
-          <div className="max-w-xl mb-12">
-            <span className="text-[9px] uppercase font-bold text-indigo-400 tracking-wider">Azure Cloud Alignment</span>
-            <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
-              Architected for Enterprise Scalability
-            </h3>
-            <p className="text-xs text-muted-foreground mt-2">
-              CreativeHub is designed with a cloud-native architecture capable of scaling through Azure services.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6">
-            {azureFeatures.map((feat) => {
-              const Icon = feat.icon;
-              return (
-                <div
-                  key={feat.title}
-                  className="p-5 rounded-2xl bg-card border border-card-border/80 flex flex-col gap-3.5 hover:border-card-border-hover transition-colors"
-                >
-                  <div className="h-10 w-10 rounded-lg bg-indigo-500/5 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <h4 className="text-xs font-bold text-white">{feat.title}</h4>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">{feat.desc}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
       {/* Landing Footer */}
